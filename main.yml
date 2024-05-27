@@ -1,0 +1,35 @@
+---
+- name: apply common configuration to all nodes
+  hosts: all
+  remote_user: ansible
+  become: yes
+
+  roles:
+    - common 
+
+
+- name: Install Apache  and Git to webservers, clone the space invaders repo,and set permissions for webservers
+  hosts: webservers
+  remote_user: ansible
+  become: yes
+
+  roles:
+    - webserver
+
+
+# - name: Install MySQL, create a database, and create a database user to the database server
+#   hosts: dbservers
+#   remote_user: ansible
+#   become: yes
+
+#   roles:
+#     - dbserver
+
+
+- name: Install HAPROXY, deploy HAPROXY config, start and enable HAPROXY to lbservers
+  hosts: lbservers
+  remote_user: ansible
+  become: yes
+
+  roles:
+    - haproxy

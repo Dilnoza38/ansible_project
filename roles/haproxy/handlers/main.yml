@@ -1,0 +1,19 @@
+---
+- name: Install HAProxy
+  yum:
+    name: haproxy
+    state: present
+  notify: Start and enable HAProxy
+ 
+- name: Deploy HAProxy configuration
+  template:
+    src: haproxy.cfg.j2
+    dest: "{{ haproxy_cfg }}"
+  notify: Restart HAProxy
+
+   
+- name: Restart HAProxy
+  service:
+    name: haproxy
+    state: restarted
+          
